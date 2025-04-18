@@ -344,6 +344,40 @@ console.log("Hello World");
 // console.log(s);
 
 
+//Extra knowledge from Chartgpt
+
+// function greet() {
+//     console.log("Hello from greet");
+//     return "👋";
+// }
+
+// const arr = [
+//     greet(),                    // ← function gets called immediately
+//     (() => "Arrow called")(),   // ← arrow function gets called
+//     42
+// ];
+
+// console.log(arr); // [ '👋', 'Arrow called', 42 ]
+
+
+// const operations = [
+//     (a, b) => a + b,
+//     (a, b) => a - b,
+//     (a, b) => a * b
+// ];
+
+// console.log(operations[0](5, 3)); // 8
+// console.log(operations[1](5, 3)); // 2
+// console.log(operations[2](5, 3)); // 15
+
+
+// const actions = [
+//     () => console.log("Hello!"),
+//     () => console.log("Welcome!"),
+//     () => console.log("Goodbye!")
+// ];
+
+// actions.forEach(fn => fn()); // Calls all 3 functions
 
 
 //Scope
