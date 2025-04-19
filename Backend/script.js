@@ -53,14 +53,37 @@
 
 
 
+//Figlet for global access
 
-const figlet = require('figlet');
+// const figlet = require('figlet');
 
-figlet("Arhan!!", function (err, data) {
-    if (err) {
-      console.log("Something went wrong...");
-      console.dir(err);
-      return;
-    }
-    console.log(data);
-  });
+// figlet("Arhan!!", function (err, data) {
+//     if (err) {
+//       console.log("Something went wrong...");
+//       console.dir(err);
+//       return;
+//     }
+//     console.log(data);
+//   });
+
+
+
+//import
+//we need to have pakage.json file to use import
+
+// import {sum, PI} from "./math.js";  //from diff file
+
+// console.log(sum(1, 2));
+// console.log(PI);
+
+// import {generate} from "random-words";  //package
+
+// console.log(generate());
+
+//In ES6 version doesnt support object exports for an import
+/*You can export multiple functions/values and import them as an object using import * as.
+
+You can default export an object.
+
+ES6 doesn't allow aliasing a group of exports into a single object directly during export. */
+

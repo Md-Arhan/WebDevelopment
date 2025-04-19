@@ -235,3 +235,61 @@ npm install -g <package-name>
 To link with the pakage 
 
 npm link <package-name>
+
+
+
+# import and export in node (ES6)
+
+"type" in package.json
+
+{
+  "type": "module"
+}
+This tells Node:
+.js files should be treated as ES modules
+You must use import/export syntax
+You must include file extensions in imports (./math.js ✅, ./math ❌).
+
+** Without "type": "module" (default is CommonJS):
+If you don’t define "type" in package.json, Node assumes:
+
+{
+  "type": "commonjs"
+}
+That means:
+You use require() and module.exports
+You don’t need to include .js extension
+import/export syntax will throw an error
+
+** You must include the file extension (like .js) when using import in Node.js (ES Modules):
+
+
+
+
+
+# CRLF and LF
+
+**What is CRLF and LF?
+They're just different ways of saying "new line" in a file.
+
+
+System	          Line Ending 	Characters	Meaning
+Windows         	  CRLF       	  \r\n	    Carriage Return + Line Feed
+Unix/Linux/macOS	  LF           	\n	      Line Feed only
+
+This means:
+Your file currently uses Windows-style (CRLF) line endings.
+Git will convert them to Unix-style (LF) when it saves or commits.
+It’s just a warning, not an error — nothing is broken.
+
+
+** Why does this happen?
+Git has a setting called core.autocrlf, which controls how line endings are handled.
+
+On Windows, core.autocrlf is usually set to true:
+
+Git converts LF → CRLF when you check out files
+
+And CRLF → LF when you commit them
+
+This keeps line endings consistent in the repo (LF), but still works for you on Windows (CRLF).

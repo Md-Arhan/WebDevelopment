@@ -19,17 +19,17 @@
 
 //shorts forms
 
-module.exports = {
-        sum : sum, 
-        mul : mul,
-        g : g, 
-        PI : PI,
-}
+// module.exports = {
+//         sum : sum, 
+//         mul : mul,
+//         g : g, 
+//         PI : PI,
+// }
 
-module.exports.sum = (a, b) => a+b;
-exports.mul = (a, b) => a*b;
+// module.exports.sum = (a, b) => a+b;
+// exports.mul = (a, b) => a*b;
 
-exports = 5;  //js takes as normal varibale, for var we use module.exports, for exports it treted as module when we use for objects in objects properties and method
+// exports = 5;  //js takes as normal varibale, for var we use module.exports, for exports it treted as module when we use for objects in objects properties and method
 
 
 /*array cant pass the methods
@@ -46,3 +46,10 @@ console.log(math[0](2, 3)); // sum → 5
 console.log(math[1](2, 3)); // multiply → 6
 But that's not readable or scalable. You're relying on the position (index) of each method.
 */
+
+export const sum = (a, b) => a +b;
+
+export const mul = (a, b) => a*b;
+
+export const g = 9.5;
+export const PI = 3.14
