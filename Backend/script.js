@@ -50,3 +50,17 @@
 
 // console.log(info.a);
 // console.log(ingo[0]);
+
+
+
+
+const figlet = require('figlet');
+
+figlet("Arhan!!", function (err, data) {
+    if (err) {
+      console.log("Something went wrong...");
+      console.dir(err);
+      return;
+    }
+    console.log(data);
+  });
