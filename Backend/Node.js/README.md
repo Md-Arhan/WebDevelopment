@@ -293,3 +293,15 @@ Git converts LF → CRLF when you check out files
 And CRLF → LF when you commit them
 
 This keeps line endings consistent in the repo (LF), but still works for you on Windows (CRLF).
+
+
+# Flags
+
+flag is like a switch you flip when running a command to tell the system:
+"Hey, do this slightly differently!"
+
+Type	        Example	    Meaning
+Short flag	     -m	      Shorthand for a command option
+Long flag	    --message	  More readable version
+Boolean flag 	--watch	    True/false toggle
+Value flag	 --port=3000	Pass a value to the flag
