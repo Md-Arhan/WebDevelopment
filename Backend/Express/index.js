@@ -21,9 +21,9 @@ const port = 8080;
 
 
 //app.get 
-app.get("/", (req, res) =>{
-    res.send("you  contacted root path");
-})
+// app.get("/", (req, res) =>{
+//     res.send("you  contacted root path");
+// })
 
 // app.get("/apple", (req, res) =>{
 //     res.send("you  contacted apple path");
@@ -53,16 +53,20 @@ app.get("/", (req, res) =>{
 // })
 
 
-app.get("/search", (req, res) => {
-    let {q} = req.query;
-    if(!q){
-        res.send("noting search")
-    }else
-    res.send(`this are the search results ${q}`);
-    //even we can send res in form of html
-    console.log(req.query);
-    res.send("success");
-})
+//query settings
+// app.get("/search", (req, res) => {
+//     let {q} = req.query;
+//     if(!q){
+//         res.send("noting search")
+//     }else
+//     res.send(`this are the search results ${q}`);
+//     //even we can send res in form of html
+//     console.log(req.query);
+//     res.send("success");
+// })
+
+
+
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`);
