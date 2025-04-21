@@ -113,3 +113,30 @@ Imagine your app is hosted on Heroku, and the user requests your site. Heroku se
 
 With trust proxy
 When you set app.set('trust proxy', true);, Express will use the IP from X-Forwarded-For and give you the real user's IP address.
+
+5. If iam running my server from outside the folder then we have to install the package from node.js,  the package is require('path');
+
+app.set('views', 'path-to-views-folder');
+
+ex: const express = require('express');
+const path = require('path');
+const app = express();
+
+app.set('view engine', 'ejs');
+
+// Provide the correct path to the views folder using path.join()
+app.set('views', path.join(__dirname, 'src', 'views'));
+
+app.get('/', (req, res) => {
+  res.render('home', { name: 'Coder' });
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on http://localhost:3000');
+});
+
+Why use path.join(__dirname, ...)?
+__dirname gives the absolute path to the folder where server.js is located.
+
+path.join(__dirname, 'src', 'views') safely builds the path no matter what OS you’re using (Windows/Linux/macOS).
+
