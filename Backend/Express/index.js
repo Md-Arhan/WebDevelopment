@@ -1,5 +1,5 @@
 const express = require("express"); // Its is a function
-const app = express(); //here we are calling and storing in a variable
+const app = express(); //here we are calling and storing in a variable, return a value, app is an object
 // console.log(app.listen);        //Give you the properties and methods.
 
 const port = 8080;
@@ -17,6 +17,42 @@ const port = 8080;
 //   let code = `<h1> Hello</h1>`;
 //   res.send(code);
 // });
+
+
+
+// app.use((req, res) => {
+//   res.send("hello")
+// })
+/*app.use([path], callback):
+If no path is provided, it matches all routes and all HTTP methods (GET, POST, PUT, etc.).
+It's often used for middleware, error handlers, or fallback routes. 
+
+So Why Does Your app.use(...) Work?
+Because you're not specifying a path, it's like saying:
+
+“For any route and any HTTP method, run this function.”
+So whether you go to /, /about, or even /random/xyz, it will respond with "hello".
+
+**Methods Similar to app.use() (in behavior or purpose)
+1. app.all(path, callback)
+Handles all HTTP methods (GET, POST, PUT, etc.) for a specific path.
+
+Unlike app.use(), you must provide a path.
+
+2.Router-level router.use()
+Just like app.use(), but used on an express.Router() instance.
+
+3.app.use(express.static(...))
+A special case of app.use() used to serve static files (e.g., HTML, CSS, images).
+
+Still doesn’t require a path and applies globally.
+ex :
+app.use(express.static('public'));
+If you open your browser and go to:
+http://localhost:3000/ → It will serve public/index.html
+http://localhost:3000/style.css → It will serve public/style.css
+http://localhost:3000/script.js → It will serve public/script.js
+*/
 
 
 
