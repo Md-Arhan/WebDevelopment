@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>This page belongs to @<%=username%></h2>
+    <button>follow</button>
+     <button>message</button>
+
+     <h3>Accoutns that follow you</h3>
+     <ul>
+        <% for(let name of followers) {%>
+           <li><%=name%></li>
+        <% }%>
+     </ul>
+
+     <%# Accessed Value	Example	Type
+data	                  Entire JSON file	object
+data['john']	         Single user object	object
+data['john'].username	  "john"	        string
+data['john'].followers	["adam", "emma"]	array%>
+
+</body>
+</html>

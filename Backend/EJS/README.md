@@ -140,3 +140,63 @@ __dirname gives the absolute path to the folder where server.js is located.
 
 path.join(__dirname, 'src', 'views') safely builds the path no matter what OS you’re using (Windows/Linux/macOS).
 
+
+ # Ways to Access Objects of Objects
+
+For static property names (those that are hardcoded and known in advance), you use dot notation (.) because it's cleaner and easier to read:
+
+const person = { name: "Alice", age: 25 };
+console.log(person.name);  // Accesses 'name' property
+
+For dynamic property names (those determined at runtime, like variables or path parameters), you use bracket notation ([]) because it allows you to evaluate expressions and access properties that are not fixed:
+
+const person = { name: "Alice", age: 25 };
+const key = "name";
+console.log(person[key]);  // Accesses 'name' property using a variable
+
+
+# Object.value() and Object.entries
+const data = {
+  john: {
+    username: "john",
+    followers: ["adam", "emma"],
+    bio: "Photographer"
+  },
+  sara: {
+    username: "sara",
+    followers: ["liam", "noah"],
+    bio: "Fitness Coach"
+  }
+};
+1️⃣ Object.values(): Get all the values (user objects) in an array
+This method returns an array of all the values from the object (in this case, the user objects).
+
+
+const values = Object.values(data);
+console.log(values);
+Output:
+
+[
+  { username: 'john', followers: ['adam', 'emma'], bio: 'Photographer' },
+  { username: 'sara', followers: ['liam', 'noah'], bio: 'Fitness Coach' }
+]
+What’s happening here?
+
+Object.values(data) gives you an array of all user objects (john, sara) that are values in the data object.
+
+2️⃣ Object.entries(): Get key-value pairs
+This method returns an array of key-value pairs (in the form of [key, value]), where each key is the property name and value is the corresponding property value (the user object).
+
+const entries = Object.entries(data);
+console.log(entries);
+Output:
+
+[
+  ['john', { username: 'john', followers: ['adam', 'emma'], bio: 'Photographer' }],
+  ['sara', { username: 'sara', followers: ['liam', 'noah'], bio: 'Fitness Coach' }]
+]
+What’s happening here?
+
+Object.entries(data) gives you an array of arrays, where each inner array has a key (like 'john', 'sara') and its corresponding value (the user object).
+
+This is particularly useful when you need both the key and value in loops or when you need to manipulate both.
