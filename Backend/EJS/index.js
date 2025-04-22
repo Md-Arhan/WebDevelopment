@@ -4,12 +4,14 @@ const path = require('path');
 
 const port = 3000;
 
+app.use(express.static(path.join(__dirname, "/public/JS")));
+app.use(express.static(path.join(__dirname, "/public/CSS")));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
 
 app.get("/", (req, res) => {
     res.render("home.ejs");
-})
+});
 
 app.get("/roledice", (req, res) => {
     let diceVal = Math.floor(Math.random() * 6)  + 1;   //coming from database
