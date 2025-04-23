@@ -1,0 +1,103 @@
+# Parsing the data
+
+app.use(express.urlencoded({ extended: true }))
+This middleware is used to parse incoming requests with URL-encoded payloads (from forms like <form method="POST">).
+
+Without this, when you try to access req.body from a form submission, you'll get undefined.
+
+pp.use(express.json())
+This one parses JSON payloads from incoming requests (usually from APIs or tools like Postman).
+
+Without it, if you're sending JSON (like from a frontend with fetch or axios), req.body will again be undefined.
+
+Because Express doesn't parse body data by default — you need these middlewares to handle incoming content properly:
+
+Content-Type	Middleware needed
+application/json	express.json()
+application/x-www-form-urlencoded	express.urlencoded()
+
+
+# Get Request
+ GET Request
+Purpose: To retrieve data from a server.
+
+Data Location: Data is sent as part of the URL (in query parameters).
+
+Example:
+
+GET /users?name=John HTTP/1.1
+Visible in URL?: Yes.
+
+Caching: Can be cached by browsers.
+
+Use Case:
+
+Fetching search results.
+
+Loading web pages.
+
+Response: Typically returns a 200 OK status with the requested data in the body (like HTML, JSON, etc.).
+
+
+# POST Request
+
+Purpose: To send data to the server to create or update a resource.
+
+Data Location: Data is sent in the body of the request.
+
+Example:
+
+POST /users HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "John",
+  "email": "john@example.com"
+}
+Visible in URL?: No (more secure for sensitive data).
+
+Caching: Not cached by default.
+
+Use Case:
+
+Submitting a form.
+
+Sending login or signup data.
+
+Response: Often returns a 201 Created or 200 OK with a message or the created resource.
+
+
+
+
+# prototype
+
+"If the method is not present in the object itself but in the prototype, and we compare it on two different objects, it gives true — because they share the same method (no copy is created)."
+
+const userA = {};
+const userB = {};
+
+console.log(userA.toString === userB.toString); // true ✅
+
+So userA.toString === userB.toString is true, because they point to the same function.  //it is not creating a copy
+
+
+If you create the methods separately:
+
+const userA = {
+  greet: function() { return "hi"; }
+};
+
+const userB = {
+  greet: function() { return "hi"; }
+};
+
+console.log(userA.greet === userB.greet); // false ❌
+
+
+**When you access a property or method on an object:
+
+First, JavaScript checks the object itself (the object’s own properties).
+
+If it doesn’t find it there, then it goes up the prototype chain (__proto__) and looks at its prototype.
+
+This process continues up the chain (like Object.prototype, etc.) until it either finds it or reaches null.
