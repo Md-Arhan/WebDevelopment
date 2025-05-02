@@ -91,4 +91,4 @@ app.delete("/post/:id", (req, res) => {
 
 app.listen(port, () => {
     console.log("Server Running")
-})
+});

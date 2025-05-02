@@ -13,6 +13,10 @@
     </style>
   </head>
   <body>
+    
+    <h2>User's Data</h2>
+    <h3>Create New User : <a href="http://localhost:8080/user/add">Click here</a></h3>
+
     <table>
       <tr>
         <th>Id</th>
@@ -27,6 +31,11 @@
         <td>
           <form method="GET" action="/user/<%=res.id%>/edit">
             <button>Edit User</button>
+          </form>
+        </td>
+        <td>
+          <form method="POST" action="/user/<%=res.id%>/delete?_method=DELETE">
+            <button>Delete User</button>
           </form>
         </td>
       </tr>

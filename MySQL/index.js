@@ -112,7 +112,7 @@ app.get("/", (req, res) => {
       }
 
       let count = result[0]["count(*)"]
-      console.log(result[0]["count(*)"]);
+      // console.log(result[0]["count(*)"]);
       // res.send(result[0]["count(*)"]);
       res.render("home.ejs", {count});
   });
@@ -130,7 +130,7 @@ app.get("/user", (req, res) => {
           return;
       }
 
-      console.log(result);
+      // console.log(result);
       // res.send(result);
       res.render("showusers.ejs", {result})
   });
@@ -148,7 +148,7 @@ app.get("/user/:id/edit", (req, res) => {
         return;
     }
 
-    console.log(result);
+    // console.log(result);
     // res.send(result);
     res.render("edit.ejs", {res : result[0]});
   });  
@@ -185,10 +185,55 @@ app.patch("/user/:id", (req, res) => {
       })
     }
 
-    console.log(result);
+    // console.log(result);
     // res.send(result);
     // res.send(result);
   });
+})
+
+app.delete("/user/:id/delete", (req, res) => {
+  let {id} = req.params;
+  let q = `SELECT * FROM user WHERE id = '${id}'`;
+  console.log(q);
+
+  conn.query(q, (err, result) => {
+    if(err){
+      console.log(err);
+      res.send("some error");
+      return;
+    }
+
+    let q2 = `DELETE FROM user WHERE id = '${id}'`;
+    conn.query(q2, (err, res) => {
+      if(err){
+        console.log(err);
+        return;
+      }
+      console.log("deleted");
+    })
+
+    res.redirect("/user");
+  })
+});
+
+app.get("/user/add", (req, res) => {
+  res.render("adduser.ejs");
+});
+
+app.post("/user/add/posts", (req, res) => {
+  let {username, password, email} = req.body;
+  let id = faker.string.uuid();
+  
+  let q = `INSERT INTO user (id, username, email, password) VALUES (?, ?, ?, ?) `;
+  conn.query(q, [id, username, email, password], (err, result) =>{
+    if(err){
+      console.log(err);
+      res.send("error");
+      return;
+    }
+
+    res.send("User added Successfully");
+  })
 })
 
 app.listen(8080, () => {

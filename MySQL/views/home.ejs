@@ -5,8 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
 </head>
+<style>
+    #newusers{
+        text-decoration: none;
+        color: black;
+    }
+</style>
 <body>
     <h2>The total number of users are : <%= count  %></h2>
-    <button>Join us today!!</button>
+    
+    <h3>Check Users : <a href="http://localhost:8080/user">Click here</a></h3>
+    <button><a href="http://localhost:8080/user/add" id="newusers">Join us today!!</a></button>
 </body>
 </html>
