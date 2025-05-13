@@ -18,16 +18,37 @@ const morgan = require('morgan')
 //     res.send("hello");        //chain break now this will be executed if we put next it goes to actual path
 // })
 
-app.use(morgan('combined'));
+// app.use(morgan('combined'));
 
 //logger - morgan 
-app.use((req, res, next) => {
-    req.time = new Date(Date.now()).toString();   //manipulating middleware by adding an extra middleware in between
-    console.log(req.method, req.hostname, req.path, req.time);
-    // console.log(morgan.combined)
-    next();
+// app.use((req, res, next) => {
+//     req.time = new Date(Date.now()).toString();   //manipulating middleware by adding an extra middleware in between
+//     console.log(req.method, req.hostname, req.path, req.time);
+//     // console.log(morgan.combined)
+//     next();
+// })
+
+const checkToken = (req, res, next) => {
+    console.log("I am only for random");
+        next();
+};
+
+app.use("/api", (req, res, next) =>{
+    let {token} = req.query;
+    if(token === "giveaccess"){
+        next();
+    }
+
+    throw new Error("DENIED ACCESS");
 })
 
+app.get("/api", checkToken, (req, res) => {
+    res.send("data");
+})
+
+// app.get("/wrong", (req, res) => {
+//     abcd = abcd;
+// })
 
 app.get("/", (req, res)=>{
     res.send("HI");
@@ -36,6 +57,11 @@ app.get("/", (req, res)=>{
 app.get("/random", (req, res) =>{
     console.log("hi");
     res.send("bye");               //it wont reach here bcz middleware send response
+})
+
+//404 
+app.use((req, res) => {
+    res.send("page not found");
 })
 
 app.listen(8080, () =>{
