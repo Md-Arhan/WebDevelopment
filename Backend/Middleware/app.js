@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const morgan = require('morgan')
+const morgan = require('morgan');
+const ExpressError = require("./ExpressError");
 
 //middleware -> response send
 
@@ -28,10 +29,10 @@ const morgan = require('morgan')
 //     next();
 // })
 
-const checkToken = (req, res, next) => {
-    console.log("I am only for random");
-        next();
-};
+// const checkToken = (req, res, next) => {
+//     console.log("I am only for random");
+//         next();
+// };
 
 app.use("/api", (req, res, next) =>{
     let {token} = req.query;
@@ -39,30 +40,53 @@ app.use("/api", (req, res, next) =>{
         next();
     }
 
-    throw new Error("DENIED ACCESS");
+    throw new ExpressError(401, "DENIED ACCESS");
 })
 
-app.get("/api", checkToken, (req, res) => {
-    res.send("data");
-})
+// app.get("/api", checkToken, (req, res) => {
+//     res.send("data");
+// })
 
 // app.get("/wrong", (req, res) => {
 //     abcd = abcd;
 // })
 
-app.get("/", (req, res)=>{
-    res.send("HI");
-})                                   // this wont send the response, middleware can send the response
+// app.get("/", (req, res)=>{
+//     res.send("HI");
+// })                                   // this wont send the response, middleware can send the response
 
-app.get("/random", (req, res) =>{
-    console.log("hi");
-    res.send("bye");               //it wont reach here bcz middleware send response
+// app.get("/random", (req, res) =>{
+//     console.log("hi");
+//     res.send("bye");               //it wont reach here bcz middleware send response
+// });
+
+//Error Handling
+
+app.get("/err", (req, res) => {
+    abcd = abcd;
+})       //if we use custom err then status must be undefined bcz we have not defines anything cutsom error
+
+app.get("/admin", (req, tes) =>{
+    throw new ExpressError(404, "Access Forbidden");
 })
+
+app.use((err, req, res, next) => {
+    console.log("----ERROR----");
+    // next(err);
+    let  {status = 500 /*Default status*/ , message} = err;
+    res.status(status).send(message);
+    res.send(err);  //custom handling error
+});
+
+// app.use((err, req, res, next) => {
+//     console.log("----ERROR2------");
+//     next(err);   //express default middleware 
+// })
 
 //404 
-app.use((req, res) => {
-    res.send("page not found");
-})
+// app.use((req, res) => {
+//     res.send("page not found");
+// })
 
 app.listen(8080, () =>{
     console.log("server running");
