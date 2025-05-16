@@ -68,6 +68,8 @@ app.get("/err", (req, res) => {
 
 app.get("/admin", (req, tes) =>{
     throw new ExpressError(404, "Access Forbidden");
+
+    
 })
 
 app.use((err, req, res, next) => {
