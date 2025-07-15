@@ -42,7 +42,6 @@ const addData = async() => {
     // let post1 = new Post({
     //     content:"hello world",
     //     likes : 8,
-
     // })
 
     let post2 = new Post({
@@ -51,6 +50,7 @@ const addData = async() => {
     })
 
     // post1.user = user1;
+
     post2.user = user1;
 
     // await user1.save();

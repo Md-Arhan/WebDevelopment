@@ -92,11 +92,31 @@ console.log(obj[key]); // Accessing using dynamic key
   res.redirect("/chats");
 });
 
+
+
+
+
 function asycnWrap(fn){
+  /*asyncWrap() returns a wrapper function.
+Express stores that wrapper function.
+When request comes, Express calls the wrapper function.
+The wrapper function immediately calls your async function, with .catch() attached.
+So there is only one real execution at request time, but the function Express calls is your wrapped version. */
   return function(req, res, next){
     fn(req, res, next).catch((err) => next(err));
   }
+
+  /*
+  Avoiding try-catch everywhere, instead of writing try catch in every route, wrapping up with single function for every route
+  Handling all errors in one place.
+  Any error inside async function will be automatically caught.
+  */
 }
+
+
+
+
+
 
 //NEW - Show Route for error handling
 // app.get("/chats/:id", async (req, res, next) => {
@@ -131,6 +151,7 @@ app.get("/chats/:id", asycnWrap(async (req, res, next) => {
 
   if (!chat) {
     // Custom error: sends to error handler middleware
+    // Async functiondoes not call next implicitly we need to call explicitly
     return next(new ExpressError(404, "Chat not found"));
   }
 
@@ -144,7 +165,11 @@ Still allows custom error handling inside route when needed
   */
 
   res.render("edit.ejs", { chat });
+  //if wromg id send to chat then ejs give you the error not mongoose, when u give wrong bu wrong length then the error is from monggose
 }));
+
+
+
 
 
 app.delete("/chats/:id", async (req, res) =>{
@@ -162,6 +187,9 @@ app.delete("/chats/:id", async (req, res) =>{
 app.get("/", (req, res) => {
   res.send("root is working");
 });
+
+
+
 
 
 //Error Handling MiddleWare

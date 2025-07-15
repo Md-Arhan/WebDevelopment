@@ -133,3 +133,79 @@ MongoDB uses BSON internally for performance.
 EJSON is used when we need to store or send data in text format, but still preserve types like ObjectId.
 
 So yes, EJSON handles the same data types — just in a readable way, while BSON handles them in binary (for speed and compactness).
+
+
+# validate
+In Mongoose, when you change some fields on a document and then run .validate(), you can control which fields should be validated using:
+
+Option	What It Does
+pathsToValidate	Only validate specific fields
+validateModifiedOnly	Validate only the fields that were changed (modified)
+pathsToSkip	Validate everything that was modified, except the ones you skip
+
+🛠️ Setup Example
+js
+Copy
+Edit
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    minlength: 3,
+  },
+  email: {
+    type: String,
+    required: true,
+    match: /.+\@.+\..+/,
+  },
+  age: {
+    type: Number,
+    min: 18,
+  }
+});
+
+const User = mongoose.model('User', userSchema);
+Now imagine you have a user:
+
+js
+Copy
+Edit
+const user = await User.findById("123");
+user.name = "Jo";               // invalid: too short
+user.email = "invalidemail";    // invalid: no @
+user.age = 25;                  // valid
+🧪 1. Validate only a specific field: pathsToValidate
+js
+Copy
+Edit
+await user.validate({ pathsToValidate: ['age'] });
+✅ This will only validate age, even though you changed name and email.
+
+🔍 2. Validate only modified fields: validateModifiedOnly
+js
+Copy
+Edit
+await user.validate({ validateModifiedOnly: true });
+✅ This will validate all fields that were changed, which are:
+
+name → ❌ too short
+
+email → ❌ invalid
+
+age → ✅ valid
+
+So this would throw validation errors for name and email.
+
+🙈 3. Skip some fields: pathsToSkip
+js
+Copy
+Edit
+await user.validate({ pathsToSkip: ['email'] });
+✅ This will validate all modified fields except email. So:
+
+name → ❌ too short → Error will be thrown
+
+email → ❌ skipped
+
+age → ✅ valid
+

@@ -27,10 +27,33 @@ const customerSchema = new Schema({
     username: String,
     order: [
         {
-            type : Schema.Types.ObjectId,
-            ref : "Order"
+            type : Schema.Types.ObjectId,    //bu deafult it stores only objectId bcz we have defind, even though in terminal shows full object 
+            ref : "Order"    // in order doc, refering to a specific docs
         }
     ]
+});
+
+//Middlewares
+customerSchema.pre("save", async () => {
+  console.log(" Customer saving...");
+});
+
+orderSchema.pre("save", async () => {
+  console.log(" Order saving...");
+});
+
+customerSchema.post("findOneAndDelete", async (data) => {  //post middleware will have all the access of deleted data
+   /*You're referring to a document whose _id field has the value data.order.
+data.order is expected to be a variable or property in your code (for example, in Node.js) that contains the actual value you want to match against the _id. */
+  if(data.order.length > 0){
+    let res = await Order.deleteMany({_id : {$in : data.order}})
+    console.log(res);
+  }
+  /*If data.order is a single value (like a string or ObjectId), this works fine. ✅
+But if data.order is an array of values, it won't work correctly without $in. ❌
+Key is the field name in the document.
+Value is what you're trying to match or assign.
+ */
 })
 
 const Order = model("Order", orderSchema);
@@ -53,12 +76,7 @@ const addCustomer = async () => {
     console.log(res);
 }
 
-const findCustomer = async () =>{
-    let res = await Customer.find({}).populate("order");
-    console.log(res);
-}
-
-findCustomer();
+//adding orders
 
 // const addOrder = async () =>{
 //    let res = await Order.insertMany([
@@ -72,3 +90,40 @@ findCustomer();
 
 // addOrder();
 // addCustomer();
+
+//Functions
+const findCustomer = async () =>{
+    let res = await Customer.find({}).populate("order");  //populate must be no longer with ObjectId, we use to extract all data
+    console.log(res[0].order[0].items);
+}
+
+//adding functions :  
+
+const addCust = async () => {
+  let newCus = new Customer({
+    name: "KaranArjun",
+  })
+
+  let newOrder = new Order({
+    items: "Burger",
+    price: 250
+  });
+
+  newCus.order.push(newOrder);
+
+  await newOrder.save();
+  await newCus.save();
+
+  console.log("added new Customer")
+}
+
+//deleting function:
+
+const delCust = async () => {
+   let data = await Customer.findByIdAndDelete("683d627439d3fabc89020787");
+   console.log(data);
+}
+
+addCust();
+// findCustomer();
+// delCust();  

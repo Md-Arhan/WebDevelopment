@@ -32,7 +32,7 @@ const userSchema = new Schema({
                 require:true
             }
         }
-    ]
+    ]    //for this adress array mongodb thinks this is also a valid documentation so it gives a seperate id for every element in array
 })
 
 const User = model("User", userSchema);
