@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.box{
+    @apply "bg-amber-700 text-white border-4
+}
